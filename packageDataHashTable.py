@@ -1,6 +1,7 @@
 import packages
 import csv
 
+
 class PackageDataHashTable:
     def __init__(self, initial_capacity=10):
         self.table = []
@@ -10,15 +11,13 @@ class PackageDataHashTable:
     def get_package_list(self):
         return self.table
 
-    # todo change key to packageid
-    def insert_package(self, package):
-        bucket = hash(package) % len(self.table)
+    def insert_package(self, package: packages.Packages):
+        bucket = hash(package.packageID) % len(self.table)
         bucket_list = self.table[bucket]
         bucket_list.append(package)
 
-    # todo change key to packageid
-    def find_package(self, package) -> packages.Packages:
-        bucket = hash(package) % len(self.table)
+    def find_package(self, package: packages.Packages) -> packages.Packages or None:
+        bucket = hash(package.packageID) % len(self.table)
         bucket_list = self.table[bucket]
 
         if package in bucket_list:
@@ -36,22 +35,25 @@ class PackageDataHashTable:
             for row in csv_reader:
                 edited_package_object = (",".join(row).replace(",,,,,", "")).split(sep=",")
 
-                p1 = packages.Packages(edited_package_object[0], edited_package_object[1], edited_package_object[2],
-                                       edited_package_object[3], edited_package_object[4], edited_package_object[5],
-                                       edited_package_object[6], edited_package_object[7])
-                self.insert_package(p1)
+                a_package = packages.Packages(edited_package_object[0], edited_package_object[1],
+                                              edited_package_object[2], edited_package_object[3],
+                                              edited_package_object[4],
+                                              edited_package_object[5], edited_package_object[6],
+                                              edited_package_object[7])
+
+                self.insert_package(a_package)
 
 
 # # test code / creating sample packages and hash table
-# p1 = packages.Packages(1, '195 W Oakland Ave', 'Salt Lake City', 'UT', 84115, '10:30 AM', 21)
-# p2 = packages.Packages(3, '233 Canyon Rd', 'Salt Lake City', 'UT', '84103', 'EOD', '2', 'Can only be on truck 2')
-# ht1 = PackageDataHashTable(3)
-#
-# ht1.insert_package(p1)
-#
-# # searching for package and error handling
-# try:
-#     print(ht1.find_package(p2).show_package())
-# except AttributeError:
-#     print("package does not exist, please try searching another")
+p1 = packages.Packages(1, '195 W Oakland Ave', 'Salt Lake City', 'UT', 84115, '10:30 AM', 21)
+p2 = packages.Packages(3, '233 Canyon Rd', 'Salt Lake City', 'UT', '84103', 'EOD', '2', 'Can only be on truck 2')
+ht1 = PackageDataHashTable(3)
 
+ht1.insert_package(p1)
+
+# searching for package and error handling
+try:
+    print(ht1.find_package(p1).show_package())
+    print(ht1.find_package(p2).show_package())
+except AttributeError:
+    print("package does not exist, please try searching another")

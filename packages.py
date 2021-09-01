@@ -8,10 +8,11 @@ class Packages:
         self.deliveryDeadline = delivery_deadline
         self.massKilo = mass_kilo
         self.specialNotes = special_notes
+        self.deliveryStatus = "AT HUB"
 
     def show_package(self):
         return self.packageID, self.address, self.city, self.state, self.zipCode, \
-               self.deliveryDeadline, self.massKilo, self.specialNotes
+               self.deliveryDeadline, self.massKilo, self.specialNotes, self.deliveryStatus
 
 
 
