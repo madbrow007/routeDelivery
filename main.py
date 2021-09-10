@@ -13,6 +13,7 @@ def main():
     current_time = initial_time
     selected_package_id = None
 
+    # while there are still undelivered_packages, the truck will pick up and deliver packages
     while undelivered_packages:
 
         undelivered_packages = package_hash_table.get_undelivered_package_list()

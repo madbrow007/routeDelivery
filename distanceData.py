@@ -13,10 +13,7 @@ class DistanceData:
         self.load_address_data()
         self.load_distance_data()
 
-    def print_distance_data(self):
-        for i in range(len(self.distance_table)):
-            print(self.distance_table[0][0])
-
+    # loads in csv distance data
     def load_distance_data(self):
         with open("Distance_Table.csv") as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=",")
@@ -28,6 +25,7 @@ class DistanceData:
                 if len(edited_distance_object) != 0:
                     self.distance_table.append(edited_distance_object)
 
+    # loads in csv address data
     def load_address_data(self):
         with open("address.csv") as csvfile:
             csv_reader = csv.reader(csvfile, delimiter=",")
@@ -37,6 +35,7 @@ class DistanceData:
                 # address_list.append(row[2])
                 self.address_list.append(row)
 
+    # gets the distance between two address id's from the distance table
     def get_distance(self, address_id_1, address_id_2):
 
         distance = self.distance_table[address_id_1][address_id_2]
@@ -46,6 +45,7 @@ class DistanceData:
 
         return float(distance)
 
+    # returns the package with the shortest distance from the current address
     def get_shortest_distance_package(self, current_address: str, package_list: list[packages.Packages]) \
             -> packages.Packages:
         current_address_id = self.get_address_id(current_address)
@@ -61,6 +61,7 @@ class DistanceData:
 
         return closest_package
 
+    # returns the correct address id from the given package address
     def get_address_id(self, package_address):
         address_id = None
 
