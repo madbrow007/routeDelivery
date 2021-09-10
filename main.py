@@ -41,8 +41,8 @@ def main():
     next_button = None
 
     while next_button != "x":
-        next_button = (input("To quit the program, type 'x'. To search for a package, type 'f',"
-                             " to view total mileage, type 'm': "))
+        next_button = (input("To quit the program, type 'x'. To search for a package, type 'f'."
+                             " To view total mileage, type 'm'. To check packages by time, type 't': "))
         if next_button == "x":
             exit()
         elif next_button == "f":
@@ -56,6 +56,15 @@ def main():
         elif next_button == "m":
             print("Total mileage after truck deliveries: ", round(total_mileage, 2))
             print()
+        elif next_button == "t":
+            print("Type a time after 08:00:00 (using 24 hour time)")
+            hour = int(input("Type an hour first, i.e., 1, 4, 14, 16, etc.: "))
+            minute = int(input("Now type minutes, i.e., 00, 30, etc.: "))
+            for package in package_hash_table.get_package_list():
+                time_str = package.deliveryStatus.split(' ')[5].split(':')
+                delivery_time = timedelta(hours=int(time_str[0]), minutes=int(time_str[1]))
+                if delivery_time <= timedelta(hours=int(hour), minutes=int(minute)):
+                    print(package.show_package())
         else:
             print("Try typing in a different command!")
             print()
